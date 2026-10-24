@@ -13,7 +13,7 @@ Explore blood-pressure and heart-period dynamics through **Delta Coupling Maps**
 </div>
 
 <p align="center">
-  <a href="assets/readme/dcm_reading_guide.pdf">Delta Coupling Map reading guide (PDF)</a>
+  <a href="assets/readme/dcm_reading_guide.pdf"><img src="assets/readme/dcm_reading_guide.png" alt="Delta Coupling Map reading guide: signed pressure and RR increments, alignment-channel colors, and three observed maps with different distributions." width="800" style="max-width: 100%; height: auto;"></a>
 </p>
 
 <p align="center">
