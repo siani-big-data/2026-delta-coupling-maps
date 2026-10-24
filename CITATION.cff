@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite this software and the PhysioNet Autonomic Aging dataset."
+title: "Baroreflex Representation Pipeline"
+type: software
+version: 1.0.0
+date-released: 2026-10-17
+authors:
+  - family-names: "Galvez"
+    given-names: "Jose J.H."
+    affiliation: "University of Las Palmas de Gran Canaria (ULPGC)"
+  - family-names: "Hernandez-Cabrera"
+    given-names: "Jose J."
+    affiliation: "University of Las Palmas de Gran Canaria (ULPGC)"
+  - family-names: "Evora-Gomez"
+    given-names: "Jose"
+    affiliation: "University of Las Palmas de Gran Canaria (ULPGC)"
+  - family-names: "Montiel-Nelson"
+    given-names: "Juan A."
+    affiliation: "University of Las Palmas de Gran Canaria (ULPGC)"
+license: MIT
+keywords:
+  - baroreflex
+  - electrocardiogram
+  - blood pressure
+  - physiological signal processing
+  - Delta Coupling Map
+preferred-citation:
+  type: software
+  title: "Baroreflex Representation Pipeline"
+  authors:
+    - family-names: "Galvez"
+      given-names: "Jose J.H."
+    - family-names: "Hernandez-Cabrera"
+      given-names: "Jose J."
+    - family-names: "Evora-Gomez"
+      given-names: "Jose"
+    - family-names: "Montiel-Nelson"
+      given-names: "Juan A."
+  year: 2026

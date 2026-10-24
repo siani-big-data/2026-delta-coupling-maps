@@ -1,0 +1,16 @@
+{
+  "dataset_url": "https://physionet.org/files/autonomic-aging-cardiovascular/1.0.0/",
+  "trim_start_seconds": 300,
+  "minimum_valid_beats": 150,
+  "ecg_channel_names": ["ECG", "ECG1", "ECG2"],
+  "bp_channel_names": ["NIBP"],
+  "rr_seconds_range": [0.3, 2.0],
+  "sbp_mmhg_range": [70.0, 200.0],
+  "dbp_mmhg_range": [40.0, 120.0],
+  "mbp_mmhg_range": [50.0, 140.0],
+  "dcm_bins": 25,
+  "delta_rr_ms_range": [-200.0, 200.0],
+  "delta_sbp_mmhg_range": [-10.0, 10.0],
+  "maximum_lag_beats": 10
+}
+

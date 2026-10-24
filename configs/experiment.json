@@ -1,0 +1,103 @@
+{
+  "split": {
+    "seed": 2025,
+    "train_fraction": 0.70,
+    "validation_fraction": 0.15,
+    "test_fraction": 0.15,
+    "stratify_by": "Age_group"
+  },
+  "target": {
+    "source": "Age_group",
+    "name": "age_midpoint_years",
+    "age_group_midpoints": {
+      "1": 18.5,
+      "2": 22.0,
+      "3": 27.0,
+      "4": 32.0,
+      "5": 37.0,
+      "6": 42.0,
+      "7": 47.0,
+      "8": 52.0,
+      "9": 57.0,
+      "10": 62.0,
+      "11": 67.0,
+      "12": 72.0,
+      "13": 77.0,
+      "14": 82.0,
+      "15": 88.5
+    }
+  },
+  "covariates": {
+    "columns": ["Sex", "BMI", "Length", "Device"],
+    "binary_columns": ["Sex", "Device"],
+    "continuous_columns": ["BMI", "Length"],
+    "missing_policy": "exclude_subject",
+    "continuous_scaling": "training_set_z_score"
+  },
+  "scalar_representation": {
+    "source_file": "scalar_features.csv",
+    "feature_set": "tsfresh_efficient_0.21.2",
+    "feature_count": 3880,
+    "scaling": "training_set_z_score",
+    "constant_training_columns": "set_to_zero"
+  },
+  "clinical_representation": {
+    "source_file": "clinical_indicators.csv",
+    "feature_set": "clinical_indicators_v1",
+    "feature_count": 21,
+    "undefined_sequence_indices": "training_set_median_imputation",
+    "scaling": "training_set_z_score"
+  },
+  "dcm_representation": {
+    "source_directory": "dcm",
+    "shape": [2, 25, 25],
+    "scaling": "joint_within_subject_max_bin_count"
+  },
+  "training": {
+    "models": ["clinical", "scalar", "dcm"],
+    "run_seeds": [2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043, 2044],
+    "epochs_maximum": 100,
+    "batch_size": 64,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "loss": "mean_squared_error",
+    "early_stopping_patience": 15,
+    "checkpoint_metric": "validation_MAE",
+    "checkpoint_mode": "minimum",
+    "test_access": "once_after_checkpoint_selection",
+    "hyperparameter_selection": "training_and_validation_only"
+  },
+  "equivalence": {
+    "primary_comparator": "clinical_indicators_v1",
+    "secondary_comparator": "tsfresh_efficient_0.21.2",
+    "metric": "paired_subject_absolute_error_difference_DCM_minus_comparator",
+    "margin_years": 0.5,
+    "confidence_interval": 0.90,
+    "decision_rule": "equivalent_if_entire_CI_within_minus_margin_plus_margin"
+  },
+  "model_capacity": {
+    "matched_by_design": false,
+    "report_trainable_parameter_count_for_every_model": true
+  },
+  "reference_models": {
+    "clinical_mlp": {
+      "physiology_branch": ["Linear(21,32)", "ReLU", "Linear(32,64)", "ReLU"],
+      "covariate_branch": ["Linear(4,32)", "ReLU", "Linear(32,64)", "ReLU"],
+      "regressor": ["Concatenate(64,64)", "Linear(128,64)", "ReLU", "Linear(64,1)"],
+      "trainable_parameters": 13409
+    },
+    "scalar_mlp": {
+      "physiology_branch": ["Linear(3880,128)", "ReLU", "Dropout(0.20)", "Linear(128,64)", "ReLU"],
+      "covariate_branch": ["Linear(4,32)", "ReLU", "Linear(32,64)", "ReLU"],
+      "regressor": ["Concatenate(64,64)", "Linear(128,64)", "ReLU", "Linear(64,1)"],
+      "trainable_parameters": 515617
+    },
+    "dcm_cnn": {
+      "image_branch": ["Conv2d(2,16,3,padding=1)", "ReLU", "MaxPool2d(2)", "Conv2d(16,32,3,padding=1)", "ReLU", "MaxPool2d(2)", "Flatten", "Linear(1152,128)", "ReLU"],
+      "covariate_branch": ["Linear(4,32)", "ReLU", "Linear(32,64)", "ReLU"],
+      "regressor": ["Concatenate(128,64)", "Linear(192,64)", "ReLU", "Linear(64,1)"],
+      "trainable_parameters": 167217
+    }
+  }
+}

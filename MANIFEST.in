@@ -1,0 +1,9 @@
+include README.md LICENSE CITATION.cff uv.lock
+graft configs
+graft tests
+graft assets
+prune paper
+prune data
+prune outputs
+prune .venv
+global-exclude *.py[cod] .DS_Store *.egg-info
